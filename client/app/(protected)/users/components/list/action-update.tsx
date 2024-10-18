@@ -10,7 +10,7 @@ interface ActionUpdateProps {
 
 function ActionUpdate({ id }: ActionUpdateProps) {
     return (
-        <DropdownMenuItem className='cursor-pointer'>
+        <DropdownMenuItem className="cursor-pointer">
             <Edit className="mr-2 h-3 w-3" />
             <Link href={`/users/${id}`}>Update</Link>
         </DropdownMenuItem>

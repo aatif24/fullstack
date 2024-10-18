@@ -26,7 +26,7 @@ export interface IUser {
     email: string;
     createdAt: Date;
     updatedAt: Date;
-    roles: Role[];
+    roles: Role[] | null | undefined;
 }
 export type TSortBy = 'name' | 'email' | 'roles';
 export type TSortOrder = 'asc' | 'desc';

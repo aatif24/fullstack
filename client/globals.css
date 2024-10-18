@@ -11,6 +11,7 @@ body {
     text-wrap: balance;
   }
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -68,11 +69,25 @@ body {
   }
 }
 
+/* new colours */
+:root {
+  --warning: 38 92% 50%;
+  --warning-foreground: 48 96% 89%;
+}
+
+.dark {
+  --warning: 48 96% 89%;
+  --warning-foreground: 38 92% 50%;
+}
+
+
+
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border transition-colors duration-75;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-500;
   }
 }

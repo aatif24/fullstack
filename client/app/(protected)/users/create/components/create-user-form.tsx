@@ -157,14 +157,6 @@ function CreateUserForm() {
     }
     return (
         <>
-            <div className="flex justify-between items-end">
-                <div>
-                    <h2 className="text-2xl font-bold tracking-tight">Users</h2>
-                    <p className="text-muted-foreground text-sm">
-                        Create a new User
-                    </p>
-                </div>
-            </div>
             <Card className="relative border-none shadow-none">
                 <CardContent className="p-0">
                     <Form {...form}>
@@ -281,7 +273,7 @@ function CreateUserForm() {
                                                             variant="secondary"
                                                             reset={resetRoles}
                                                             // animation={2}
-                                                            maxCount={3}
+                                                            maxCount={2}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />

@@ -1,19 +1,23 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { RolesService } from './roles.service';
-import { AuthGuard } from '../auth/auth.guard';
+import { RequirePermissions } from './permissions.decorator';
+import { IRoleQueryParams } from './dto/fetchRoles.dto';
 
-@UseGuards(AuthGuard)
 @Controller({ version: '1', path: 'roles' })
 export class RolesController {
-    constructor(private rolesService: RolesService) {}
+    constructor(private rolesService: RolesService) { }
 
+    @RequirePermissions('read')
     @Get('')
-    findAll() {
-        return this.rolesService.findAll();
+    findAll(@Query() filters: IRoleQueryParams) {
+        return this.rolesService.findAll(filters);
     }
 
-    @Post('create')
-    getProfile() {
-        return this.rolesService.create();
+    /** project setup */
+    @RequirePermissions('create')
+    @Post('createFirstSet')
+    firstSet() {
+        return
+        // return this.rolesService.firstSet();
     }
 }

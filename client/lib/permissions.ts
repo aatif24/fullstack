@@ -1,4 +1,6 @@
 export const PROFILE_READ = "profile:read"
+export const ROLES_CREATE = "roles:create"
+export const ROLES_READ = "roles:read"
 export const NEW_TAB = "tabs:create"
 export const USER_CREATE = "users:create"
 export const USER_READ = "users:read"

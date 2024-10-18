@@ -33,6 +33,10 @@ function RBac<P>(
         const { user } = useAuth();
 
         if (user) {
+            if (user.isSuperAdmin) {
+                return <WrappedComponent {...props} />;
+            }
+
             const hasAllPermissions = requiredPermissions.some((perm) =>
                 user.permissions.includes(perm),
             );

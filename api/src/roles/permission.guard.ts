@@ -1,6 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { PERMISSION_KEY } from './permissions.decorator';
+import { IUser } from 'src/users/entities/users.entity';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
@@ -14,22 +15,34 @@ export class PermissionsGuard implements CanActivate {
         if (!requiredPermissions) {
             return true;
         }
-        const { user } = context.switchToHttp().getRequest();
-        const permissions = getPermissionsByKey(user);
 
-        const per = requiredPermissions.some((permissoin) =>
-            permissions?.includes(permissoin),
+        const { user, path } = context.switchToHttp().getRequest();
+
+        if (user.isSuperAdmin) {
+            return true;
+        }
+
+        const module = path.split('/')[1];
+
+        const userPermissions = getPermissionsByKey(user);
+
+        const isAllowed = requiredPermissions.some((permission) =>
+            userPermissions?.includes(`${module}:${permission}`),
         );
-        return per;
+
+        return isAllowed;
     }
 }
 
-function getPermissionsByKey(user) {
+function getPermissionsByKey(user: IUser) {
     let permissions = [];
 
     user.roles.forEach((role) => {
         role.permissions.forEach((permission) => {
-            permissions.push(permission.key);
+            permission &&
+                permissions.push(
+                    `${permission.module}:${permission.permission}`,
+                );
         });
     });
 

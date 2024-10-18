@@ -30,25 +30,25 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import Action from './action';
 import { toast } from 'sonner';
-import ConfirmArchive from './confirm-archive';
+import ConfirmArchive from '../../../../../components/ui/confirm-archive';
 
-const headers: { name: TSortBy, hide: boolean, club: string[] }[] = [
+const headers: { name: TSortBy; hide: boolean; club: string[] }[] = [
     {
         name: 'name',
         hide: false,
-        club: ['email', 'roles']
+        club: ['email', 'roles'],
     },
     {
         name: 'email',
         hide: true,
-        club: []
+        club: [],
     },
     {
         name: 'roles',
         hide: true,
-        club: []
-    }
-]
+        club: [],
+    },
+];
 
 export default function UserListTable() {
     const [userToArchive, setUserToArchive] = useState<string | null>(null);
@@ -140,10 +140,10 @@ export default function UserListTable() {
                                                         {h.name}
                                                     </span>
                                                     {sortBy === h.name &&
-                                                        sortOrder === 'desc' ? (
+                                                    sortOrder === 'desc' ? (
                                                         <ArrowDownIcon className="ml-2 h-4 w-4" />
                                                     ) : sortBy === h.name &&
-                                                        sortOrder === 'asc' ? (
+                                                      sortOrder === 'asc' ? (
                                                         <ArrowUpIcon className="ml-2 h-4 w-4" />
                                                     ) : (
                                                         <CaretSortIcon className="ml-2 h-4 w-4" />
@@ -203,7 +203,7 @@ export default function UserListTable() {
                                     {user.email}
                                 </p>
                                 <p className="md:hidden text-xs text-muted-foreground/90">
-                                    {user.roles.map((r) => r.name).join(',')}
+                                    {user?.roles?.map((r) => r.name).join(',')}
                                 </p>
                             </TableCell>
                             <TableCell
@@ -221,7 +221,7 @@ export default function UserListTable() {
                                     `${sortBy == 'roles' ? 'bg-muted/50' : ''}`,
                                 )}
                             >
-                                {user.roles.map((r) => r.name).join(',')}
+                                {user?.roles?.map((r) => r.name).join(',')}
                             </TableCell>
                             <TableCell className="py-2 text-right space-x-2">
                                 <Action
@@ -236,7 +236,7 @@ export default function UserListTable() {
             </Table>
             <ConfirmArchive
                 isAlertOpen={isAlertOpen}
-                userToArchive={userToArchive}
+                entityToArchive={userToArchive}
                 handleArchive={handleArchive}
                 setIsAlertOpen={setIsAlertOpen}
             />

@@ -9,7 +9,24 @@ export class UsersService {
     constructor(
         @Inject('USER_MODEL')
         private userModel: Model<IUser>,
-    ) {}
+    ) { }
+
+    async createAdmin(): Promise<IUser> {
+        try {
+            return;
+            const newUser = new this.userModel({
+                name: 'admin',
+                email: 'admin@instastack.io',
+                password: '', //provide password
+                isSuperAdmin: true,
+            });
+            return (await newUser.save()).toJSON();
+        } catch (error) {
+            if (error?.code == 11000) {
+                throw new BadRequestException();
+            }
+        }
+    }
 
     async create(user: CreateUserDto): Promise<IUser> {
         try {
@@ -24,6 +41,10 @@ export class UsersService {
 
     async findOneByEmail(email: string): Promise<IUser | undefined> {
         return this.userModel.findOne({ email });
+    }
+
+    async getUser(id: string): Promise<IUser> {
+        return this.userModel.findById(id, { password: 0 });
     }
 
     async archive(id: string): Promise<void> {
@@ -53,9 +74,10 @@ export class UsersService {
     }> {
         try {
             const query: { [key: string]: string | boolean | number | object } =
-                {
-                    isArchived: { $ne: true },
-                };
+            {
+                isArchived: { $ne: true },
+                isSuperAdmin: { $ne: true },
+            };
 
             // If a search term is provided, use regex to search on the email field (case-insensitive)
             if (q) {
@@ -71,7 +93,7 @@ export class UsersService {
                 .sort({ [sortBy]: sortOrder == 'asc' ? 1 : -1 })
                 .skip((page - 1) * limit) // Skip based on the page
                 .limit(limit) // Limit the number of results
-                .populate('roles'); // Execute the query
+                .populate({ path: 'roles', populate: { path: "permissions", populate: { path: "module" } } }); // Execute the query
 
             // Get the total count of matching users
             const totalCount = await this.userModel.countDocuments(query);

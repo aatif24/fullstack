@@ -24,6 +24,7 @@ export interface User {
     createdAt: Date;
     updatedAt: Date;
     roles: Role[];
+    isSuperAdmin: boolean;
     permissions: string[];
 }
 // Define the user type and context state

@@ -15,7 +15,7 @@ export default function RootLayout({
     return (
         <UsersProvider>
             {children}
-            <Toaster position="top-right" closeButton />
+            <Toaster position="bottom-right" closeButton />
         </UsersProvider>
     );
 }

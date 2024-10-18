@@ -16,13 +16,17 @@ import RBac from '@/components/hoc/permissions.hoc';
 import { USER_READ } from '@/lib/permissions';
 import UserListTable from './table';
 import LoaderComponent from '@/components/ui/loader';
+import { PaginationComponent } from '@/components/ui/pagination-wrapper';
+import PageHeader from '@/components/ui/page-header';
 
-function UserList() {
+function ListUsers() {
     const {
         setSortOrder,
         setSortBy,
         setSearch,
         setCurrentPage,
+        currentPage,
+        totalPages,
         search,
         loading,
     } = useUsers();
@@ -52,12 +56,7 @@ function UserList() {
     return (
         <>
             <div className="md:flex justify-between items-end space-y-6 md:space-y-0">
-                <div className="">
-                    <h2 className="text-2xl font-bold tracking-tight">Users</h2>
-                    <p className="text-muted-foreground text-sm">
-                        Here&apos;s a list of your Users!
-                    </p>
-                </div>
+                <PageHeader title={"Users"} description="Here&apos;s a list of your Users!" />
 
                 <div className="relative flex gap-4">
                     <Link
@@ -76,7 +75,7 @@ function UserList() {
                         className=" w-full md:min-w-[300px]"
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
-                        placeholder="search..."
+                        placeholder="Search..."
                     />
                     {search ? (
                         <Button
@@ -96,11 +95,15 @@ function UserList() {
                 <LoaderComponent loading={loading} />
                 <CardContent className="p-0 space-y-4 flex flex-col h-full justify-between ">
                     <UserListTable />
-                    <UserPagination />
+                    <PaginationComponent
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                    />
                 </CardContent>
             </Card>
         </>
     );
 }
 
-export default RBac(UserList, [USER_READ]);
+export default RBac(ListUsers, [USER_READ]);

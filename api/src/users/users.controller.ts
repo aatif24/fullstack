@@ -1,7 +1,6 @@
 import {
     Controller,
     Get,
-    UseGuards,
     Request,
     Query,
     Post,
@@ -9,15 +8,15 @@ import {
     Param,
     Delete,
     Put,
+    Req,
 } from '@nestjs/common';
 
-import { AuthGuard } from 'src/auth/auth.guard';
+import { Public } from 'src/auth/auth.guard';
 import { RequirePermissions } from 'src/roles/permissions.decorator';
 import { UsersService } from './users.service';
 import { IUserQueryParams } from './dto/fetchUsers.dto';
 import { CreateUserDto } from './dto/createUser.dto';
 
-@UseGuards(AuthGuard)
 @Controller({ version: '1', path: 'users' })
 export class UsersController {
     constructor(private usersService: UsersService) {}
@@ -27,25 +26,38 @@ export class UsersController {
         return req.user;
     }
 
-    @RequirePermissions('users:create')
+    @Public()
+    @Get('createAdmin')
+    createAdmin() {
+        return this.usersService.createAdmin();
+    }
+
+    @RequirePermissions('create')
     @Post('')
-    createUser(@Body() createUserDto: CreateUserDto) {
+    createUser(@Req() req, @Body() createUserDto: CreateUserDto) {
+        createUserDto.createdBy = req.user;
         return this.usersService.create(createUserDto);
     }
 
-    @RequirePermissions('users:read')
+    @RequirePermissions('read')
     @Get('')
     findAll(@Query() filters: IUserQueryParams) {
         return this.usersService.findAll(filters);
     }
 
-    @RequirePermissions('users:archive')
+    @RequirePermissions('read')
+    @Get('/:id')
+    getUser(@Param('id') id) {
+        return this.usersService.getUser(id);
+    }
+
+    @RequirePermissions('archive')
     @Delete('/:id')
     archive(@Param('id') id) {
         return this.usersService.archive(id);
     }
 
-    @RequirePermissions('users:update')
+    @RequirePermissions('update')
     @Put('/un-archive/:id')
     unArchive(@Param('id') id) {
         return this.usersService.unArchive(id);

@@ -9,6 +9,7 @@ import { AuthProvider } from '@/components/providers/auth.provider';
 import '@/globals.css';
 import Link from 'next/link';
 import { Triangle } from 'lucide-react';
+import Image from 'next/image';
 
 const geistSans = localFont({
     src: '../../fonts/GeistVF.woff',
@@ -34,7 +35,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <AuthProvider>
                     <ThemeProvider
@@ -49,14 +50,15 @@ export default function RootLayout({
                                     className="mr-4 flex-none items-center justify-center flex"
                                     href="/"
                                 >
-                                    <Triangle className="w-6 h-6" />
+                                    <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo"/>
+                                    <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo"/>
                                 </Link>
                                 <Nav />
                                 <UserNav />
                             </Suspense>
                         </header>
-                        <div className="md:max-w-7xl mx-auto md:mt-24 p-4 xl:p-0">
-                            <div className="h-full flex-1 flex-col space-y-8 md:flex">
+                        <div className="md:max-w-7xl mx-auto my-[6rem] p-4 xl:p-0">
+                            <div className="h-full flex-1 flex-col space-y-6 md:flex">
                                 <BreadcrumbComponent />
                                 {children}
                             </div>

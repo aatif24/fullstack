@@ -16,19 +16,18 @@ import { ThemeToggle } from './theme-toggle';
 import { userLogout } from './action';
 
 export function UserNav() {
-
     return (
-        <div className='flex gap-4 items-center justify-center'>
+        <div className="flex gap-4 items-center justify-center">
             <ThemeToggle />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant="ghost"
-                        className="relative h-8 w-8 rounded-full flex-none "
+                        className="relative h-8 w-8 rounded-full flex-none"
                     >
                         <Avatar className="h-9 w-9">
                             <AvatarImage
-                                src="https://avatars.githubusercontent.com/u/46748960?v=4"
+                                src="/avatar.png"
                                 alt="@shadcn"
                             />
                             <AvatarFallback>AD</AvatarFallback>

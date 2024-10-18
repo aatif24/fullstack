@@ -11,12 +11,12 @@ import {
 
 export default function ConfirmArchive({
     isAlertOpen,
-    userToArchive,
+    entityToArchive,
     handleArchive,
     setIsAlertOpen,
 }: {
     isAlertOpen: boolean;
-    userToArchive: string | null;
+    entityToArchive: string | null;
     handleArchive: (user: string) => void;
     setIsAlertOpen: (isOpen: boolean) => void;
 }) {
@@ -25,18 +25,17 @@ export default function ConfirmArchive({
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                        Are you sure you want to archive this user?
+                        Are you sure you want to archive?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action can be undone later, but the user will lose
-                        access to their account temporarily.
+                        This action can be undone later!.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
                         onClick={() =>
-                            userToArchive && handleArchive(userToArchive)
+                            entityToArchive && handleArchive(entityToArchive)
                         }
                     >
                         Continue

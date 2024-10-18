@@ -27,11 +27,11 @@ export const RoleSchema = new mongoose.Schema<IRole>(
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
+            required: true,
         },
         updatedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            default: null,
         },
     },
     { timestamps: true, id: true, toJSON: { virtuals: true } },

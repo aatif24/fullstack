@@ -29,9 +29,9 @@ function Actions({ setUserToArchive, setIsAlertOpen, id }: ActionProps) {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="" align="end" forceMount>
-                <DropdownMenuGroup className='space-y-1'>
+                <DropdownMenuGroup className="space-y-1">
                     <ActionUpdate id={id} />
-                    <Separator/>
+                    <Separator />
                     <ActionArchive
                         id={id}
                         setUserToArchive={setUserToArchive}

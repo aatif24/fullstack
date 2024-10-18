@@ -66,8 +66,7 @@ export default function Nav() {
                     onPointerLeave={(event) => event.preventDefault()}
                 >
                     <NavigationMenuTrigger
-                        className='bg-0'
-
+                        className="bg-0"
                         onPointerMove={(event) => event.preventDefault()}
                         onPointerLeave={(event) => event.preventDefault()}
                     >
@@ -87,28 +86,16 @@ export default function Nav() {
                                             Users
                                         </div>
                                         <p className="text-sm leading-tight text-muted-foreground">
-                                            Beautifully designed components that
-                                            you can copy and paste into your
-                                            apps. Accessible. Customizable. Open
-                                            Source.
+                                            Manage and oversee the users in the system, including creation, updates, and role assignments.
                                         </p>
                                     </Link>
                                 </NavigationMenuLink>
                             </li>
-                            <ListItem href="/docs" title="Introduction">
-                                Roles
+                            <ListItem href="/modules" title="Modules">
+                                Configure and manage different system functionalities or features.
                             </ListItem>
-                            <ListItem
-                                href="/docs/installation"
-                                title="Installation"
-                            >
-                                Permissions
-                            </ListItem>
-                            <ListItem
-                                href="/docs/primitives/typography"
-                                title="Typography"
-                            >
-                                Styles for headings, paragraphs, lists...etc
+                            <ListItem href="/roles" title="Roles">
+                                Define user roles and set permissions for various modules.
                             </ListItem>
                         </ul>
                     </NavigationMenuContent>
@@ -117,8 +104,7 @@ export default function Nav() {
                     onPointerLeave={(event) => event.preventDefault()}
                 >
                     <NavigationMenuTrigger
-                        className='bg-0'
-
+                        className="bg-0"
                         onPointerMove={(event) => event.preventDefault()}
                         onPointerLeave={(event) => event.preventDefault()}
                     >
@@ -143,12 +129,12 @@ export default function Nav() {
                 <NavigationMenuItem
                     onPointerLeave={(event) => event.preventDefault()}
                 >
-                    <Link href="/docs" legacyBehavior passHref >
+                    <Link href="/docs" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(
                                 navigationMenuTriggerStyle(),
                                 'hidden md:inline',
-                                'bg-0'
+                                'bg-0',
                             )}
                         >
                             Documentation
@@ -167,7 +153,8 @@ const ListItem = React.forwardRef<
     return (
         <li>
             <NavigationMenuLink asChild>
-                <a
+                <Link
+                    href={props.href as string}
                     ref={ref}
                     className={cn(
                         'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
@@ -181,7 +168,7 @@ const ListItem = React.forwardRef<
                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                         {children}
                     </p>
-                </a>
+                </Link>
             </NavigationMenuLink>
         </li>
     );
