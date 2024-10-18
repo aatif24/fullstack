@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 import { Public } from 'src/auth/auth.guard';
-import { RequirePermissions } from 'src/roles/permissions.decorator';
+import { RequirePermissions } from 'src/permissions/permissions.decorator';
 import { UsersService } from './users.service';
 import { IUserQueryParams } from './dto/fetchUsers.dto';
 import { CreateUserDto } from './dto/createUser.dto';

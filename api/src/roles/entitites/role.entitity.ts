@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { IUser } from 'src/users/entities/users.entity';
-import { IPermission } from './permission.entity';
+import { IPermission } from '../../permissions/entitites/permission.entity';
 
 export interface IRole {
     id: string;

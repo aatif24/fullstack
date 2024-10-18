@@ -5,11 +5,10 @@ import { DatabaseModule } from './database/database.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 import { RolesModule } from './roles/roles.module';
-import { PermissionsGuard } from './roles/permission.guard';
 import { LoggerMiddleware } from './app.middleware';
-import { ModulesController } from './modules/modules.controller';
-import { ModulesService } from './modules/modules.service';
+import { PermissionsModule } from './permissions/permissions.module';
 import { ModulesModule } from './modules/modules.module';
+import { PermissionsGuard } from './permissions/permission.guard';
 
 @Module({
     imports: [
@@ -18,6 +17,7 @@ import { ModulesModule } from './modules/modules.module';
         DatabaseModule,
         RolesModule,
         ModulesModule,
+        PermissionsModule,
     ],
     providers: [
         {

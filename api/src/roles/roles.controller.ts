@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Request } from '@nestjs/common';
 import { RolesService } from './roles.service';
-import { RequirePermissions } from './permissions.decorator';
+import { RequirePermissions } from '../permissions/permissions.decorator';
 import { IRoleQueryParams } from './dto/fetchRoles.dto';
+import { CreateRoleDto } from './dto/createRole.dto';
 
 @Controller({ version: '1', path: 'roles' })
 export class RolesController {
@@ -11,6 +12,12 @@ export class RolesController {
     @Get('')
     findAll(@Query() filters: IRoleQueryParams) {
         return this.rolesService.findAll(filters);
+    }
+
+    @RequirePermissions('write')
+    @Post('')
+    create(@Body() role: CreateRoleDto, @Request() req) {
+        return this.rolesService.create(role, req.user);
     }
 
     /** project setup */

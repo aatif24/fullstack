@@ -87,6 +87,10 @@ body {
     @apply border-border transition-colors duration-75;
   }
 
+  img {
+    @apply rounded-lg;
+  }
+
   body {
     @apply bg-background text-foreground transition-colors duration-500;
   }

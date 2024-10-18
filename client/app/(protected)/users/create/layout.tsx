@@ -14,7 +14,6 @@ export default function RootLayout({
     return (
         <>
             {children}
-            <Toaster position="top-right" closeButton />
         </>
     );
 }

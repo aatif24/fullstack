@@ -1,18 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IRole } from './entitites/role.entitity';
 import { Model } from 'mongoose';
-import { IPermission } from './entitites/permission.entity';
+import { IPermission } from '../permissions/entitites/permission.entity';
 import { ModulesService } from 'src/modules/modules.service';
 import { IRoleQueryParams } from './dto/fetchRoles.dto';
+import { CreateRoleDto } from './dto/createRole.dto';
+import { IUser } from 'src/users/entities/users.entity';
 
 @Injectable()
 export class RolesService {
     constructor(
         @Inject('ROLE_MODEL')
         private roleModel: Model<IRole>,
-        @Inject('PERMISSION_MODEL')
-        private permissionModel: Model<IPermission>,
-        private modulesService: ModulesService,
     ) { }
 
     // async firstSet() {
@@ -60,6 +59,12 @@ export class RolesService {
     //     newRole.save();
     //     return;
     // }
+
+    async create(role: CreateRoleDto, user: IUser): Promise<IRole> {
+        const newRole = new this.roleModel(role)
+        newRole.createdBy = user;
+        return newRole.save();
+    }
 
 
     async findAll({

@@ -2,21 +2,23 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { IModule } from './entitites/module.entitity';
 import { IModuleQueryParams } from './dto/fetchModules.dto';
+import { PermissionsService } from 'src/permissions/permissions.service';
 
 @Injectable()
 export class ModulesService {
     constructor(
         @Inject('FEATURE_MODEL')
         private moduleModel: Model<IModule>,
-    ) {}
+        private permissionsService: PermissionsService
+    ) { }
 
-    // async create() {
-    //     const newModule = new this.moduleModel({
-    //         key: 'modules'
-    //     });
-    //     newModule.save();
-    //     return newModule;
-    // }
+    async create(module, user) {
+        const newModule = new this.moduleModel(module);
+        newModule.createdBy = user;
+        newModule.save();
+        this.permissionsService.createPermissionsForModule(newModule,user)
+        return newModule;
+    }
 
     async findAll({
         page = 1,

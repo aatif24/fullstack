@@ -13,6 +13,7 @@ import {
     ArrowUpIcon,
 } from 'lucide-react';
 import {
+    TPermission,
     TSortBy,
     TSortOrder,
     useRoles,
@@ -31,13 +32,14 @@ import { useState } from 'react';
 import Action from './action';
 import { toast } from 'sonner';
 import ConfirmArchive from '@/components/ui/confirm-archive';
+import { Separator } from '@/components/ui/separator';
 
 
 const headers: { name: TSortBy; hide: boolean; club: string[] }[] = [
     {
         name: 'name',
         hide: false,
-        club: ['email', 'roles'],
+        club: [],
     }
 ];
 
@@ -105,6 +107,33 @@ export default function RoleListTable() {
         }
     }
 
+    function GroupPermissionsByModule({ permissions }: { permissions: TPermission[] | null | undefined }) {
+        const groupedPermissions = permissions?.reduce((acc: { [key: string]: TPermission[] }, permission) => {
+            const moduleName = permission?.module?.name;
+            if (!acc[moduleName]) {
+                acc[moduleName] = [];
+            }
+            acc[moduleName].push(permission);
+            return acc;
+        }, {});
+
+        if (groupedPermissions) {
+            return Object.entries(groupedPermissions).map(([module, permission]) => {
+                return <div key={module} className='grid grid-cols-2 w-40'>
+                    <span className='capitalize'>{module}:</span>
+                    <div className="flex text-xs items-center gap-2">
+                        {
+                            permission?.map(p => {
+                                return <span key={`${module}-${p.permission}`}>{p.permission}</span>
+                            })
+                        }
+                    </div>
+                </div>
+            })
+        }
+        return null
+    }
+
     return (
         <>
             <Table className="">
@@ -131,10 +160,10 @@ export default function RoleListTable() {
                                                         {h.name}
                                                     </span>
                                                     {sortBy === h.name &&
-                                                    sortOrder === 'desc' ? (
+                                                        sortOrder === 'desc' ? (
                                                         <ArrowDownIcon className="ml-2 h-4 w-4" />
                                                     ) : sortBy === h.name &&
-                                                      sortOrder === 'asc' ? (
+                                                        sortOrder === 'asc' ? (
                                                         <ArrowUpIcon className="ml-2 h-4 w-4" />
                                                     ) : (
                                                         <CaretSortIcon className="ml-2 h-4 w-4" />
@@ -175,7 +204,10 @@ export default function RoleListTable() {
                                 </TableHead>
                             );
                         })}
-                        <TableHead className="md:w-[200px]">
+                        <TableHead className="hidden md:table-cell">
+                            <span>Modules / Permissions</span>
+                        </TableHead>
+                        <TableHead  className="">
                             <span className="sr-only">Actions</span>
                         </TableHead>
                     </TableRow>
@@ -185,11 +217,18 @@ export default function RoleListTable() {
                         <TableRow key={role.id} className="">
                             <TableCell
                                 className={cn(
-                                    'px-5 py-4 font-medium',
+                                    'px-5 py-4 font-medium capitalize',
                                     `${sortBy == 'name' ? 'bg-muted/50' : ''}`,
                                 )}
                             >
                                 {role.name}
+                            </TableCell>
+                            <TableCell
+                                className={cn(
+                                    'px-5 py-4 font-medium capitalize hidden md:table-cell'
+                                )}
+                            >
+                                <GroupPermissionsByModule permissions={role?.permissions} />
                             </TableCell>
                             <TableCell className="py-2 text-right space-x-2">
                                 <Action

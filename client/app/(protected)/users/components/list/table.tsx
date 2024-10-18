@@ -194,7 +194,7 @@ export default function UserListTable() {
                         <TableRow key={user.id} className="">
                             <TableCell
                                 className={cn(
-                                    'px-5 py-4 font-medium',
+                                    'px-5 py-4 font-medium capitalize',
                                     `${sortBy == 'name' ? 'bg-muted/50' : ''}`,
                                 )}
                             >
@@ -203,7 +203,7 @@ export default function UserListTable() {
                                     {user.email}
                                 </p>
                                 <p className="md:hidden text-xs text-muted-foreground/90">
-                                    {user?.roles?.map((r) => r.name).join(',')}
+                                    {user?.roles?.map((r) => r.name).join(', ')}
                                 </p>
                             </TableCell>
                             <TableCell
@@ -221,7 +221,7 @@ export default function UserListTable() {
                                     `${sortBy == 'roles' ? 'bg-muted/50' : ''}`,
                                 )}
                             >
-                                {user?.roles?.map((r) => r.name).join(',')}
+                                {user?.roles?.map((r) => r.name).join(', ')}
                             </TableCell>
                             <TableCell className="py-2 text-right space-x-2">
                                 <Action

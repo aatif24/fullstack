@@ -82,7 +82,7 @@ function CreateUserForm() {
                 if (res.ok) {
                     const result = await res.json();
                     setAllRoles(
-                        result.map((r: IRoleReceived) => ({
+                        result.roles.map((r: IRoleReceived) => ({
                             value: r.id,
                             label: r.name,
                         })),

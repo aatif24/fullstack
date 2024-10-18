@@ -1,18 +1,11 @@
 import { ArrayNotEmpty, IsEmail, IsNotEmpty } from 'class-validator';
 
-export class CreateUserDto {
+export class CreateRoleDto {
     @IsNotEmpty()
     name: string;
 
-    @IsNotEmpty()
-    password: string;
-
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
-
     @ArrayNotEmpty()
-    roles: string[];
+    permissions: string[];
 
     createdBy: string;
 }

@@ -11,10 +11,10 @@ import React, {
 } from 'react';
 
 type TModule = {
-    key: string
+    name: string
 }
 
-type TPermission = {
+export type TPermission = {
     module: TModule;
     permission: string;
 };

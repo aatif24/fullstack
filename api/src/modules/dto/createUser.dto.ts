@@ -1,18 +1,8 @@
-import { ArrayNotEmpty, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
-export class CreateUserDto {
+export class CreateModuleDto {
     @IsNotEmpty()
     name: string;
-
-    @IsNotEmpty()
-    password: string;
-
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
-
-    @ArrayNotEmpty()
-    modules: string[];
 
     createdBy: string;
 }

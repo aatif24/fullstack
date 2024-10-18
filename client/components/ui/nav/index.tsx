@@ -129,7 +129,7 @@ export default function Nav() {
                 <NavigationMenuItem
                     onPointerLeave={(event) => event.preventDefault()}
                 >
-                    <Link href="/docs" legacyBehavior passHref>
+                    <Link href="/documentation" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(
                                 navigationMenuTriggerStyle(),

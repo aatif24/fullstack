@@ -185,7 +185,7 @@ export default function ModuleListTable() {
                         <TableRow key={module.id} className="">
                             <TableCell
                                 className={cn(
-                                    'px-5 py-4 font-medium',
+                                    'px-5 py-4 font-medium capitalize',
                                     `${sortBy == 'name' ? 'bg-muted/50' : ''}`,
                                 )}
                             >
