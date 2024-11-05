@@ -35,7 +35,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
             >
                 <AuthProvider>
                     <ThemeProvider
@@ -45,7 +45,7 @@ export default function RootLayout({
                         enableColorScheme
                     >
 
-                        <header className="fixed top-0  z-50 flex w-full p-4 px-6 backdrop-blur bg-accent/30">
+                        <header className="fixed top-0  z-50 flex w-full p-4 px-6 backdrop-blur  ">
                             <Suspense>
                                 <Link
                                     className="mr-4 flex-none items-center justify-center flex"

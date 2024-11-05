@@ -13,9 +13,17 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ThemeToggle } from './theme-toggle';
-import { userLogout } from './action';
+
 
 export function UserNav() {
+    async function handleLogout() {
+        const res = await fetch("/api/users/logout", {
+            method: "POST",
+        });
+        if (res.redirected) {
+            window.location.href = res.url;
+        }
+    }
     return (
         <div className="flex gap-4 items-center justify-center">
             <ThemeToggle />
@@ -62,7 +70,7 @@ export function UserNav() {
                         <DropdownMenuItem>New Team</DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={userLogout}>
+                    <DropdownMenuItem onClick={handleLogout}>
                         Log out
                         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                     </DropdownMenuItem>

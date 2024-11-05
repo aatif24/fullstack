@@ -117,7 +117,7 @@ export default function UserListTable() {
 
     return (
         <>
-            <Table className="">
+            <Table className="bg-background">
                 <TableHeader className="">
                     <TableRow className="">
                         {headers.map((h) => {

@@ -23,7 +23,6 @@ export class UsersController {
 
     @Get('me')
     getProfile(@Request() req) {
-        console.log(req.user)
         return req.user;
     }
 
