@@ -45,7 +45,7 @@ export default function RootLayout({
                         <Suspense>
                             <Nav />
                         </Suspense>
-                        <div className="md:max-w-7xl mx-auto my-[4rem] md:my-[6rem] lg:my-[8rem] p-4 md:p-6 lg:p-4 xl:p-0">
+                        <div className="md:max-w-7xl mx-auto my-[5rem] md:my-[6rem] lg:my-[8rem] p-6 md:p-6 lg:p-4 xl:p-0">
                             <div className="h-full flex-1 flex-col space-y-6 md:flex">
                                 <BreadcrumbComponent />
                                 {children}

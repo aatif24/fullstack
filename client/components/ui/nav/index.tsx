@@ -52,7 +52,7 @@ export default function Nav() {
     const pathname = usePathname();
 
     const [isScrolled, setIsScrolled] = useState(false);
-    const [open, setOpen] = useState(false);
+
 
     const handleScroll = () => {
         if (window.scrollY > 50) {
@@ -72,7 +72,7 @@ export default function Nav() {
     return (
         <div className='relative z-50'>
             {/* Main menu on large screens */}
-            <div className={cn(`hidden lg:fixed top-0   lg:flex w-full p-4 px-6 backdrop-blur bg-background/30 dark:bg-background/70 transition-all duration-300 -translate-x-1/2 left-1/2`, `${isScrolled && 'border-[0.5px] -translate-x-1/2 w-3/4 shadow rounded-full left-1/2 top-5'}`)}>
+            <div className={cn(`hidden lg:fixed top-0   lg:flex w-full p-4 px-6 backdrop-blur bg-background/30 dark:bg-background/70 transition-all duration-300 -translate-x-1/2 left-1/2`, `${isScrolled && 'border-[0.5px] dark:border-0 dark:shadow-foreground/20 -translate-x-1/2 w-3/4 shadow rounded-full left-1/2 top-5'}`)}>
                 <div className='flex items-center justify-between w-full gap-4'>
                     <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo" />
                     <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo" />
@@ -98,14 +98,22 @@ export default function Nav() {
                     <UserNav />
                 </div>
             </div>
-            <div className={cn(
-                "transition-height border-[0.5px]  duration-300 ease-in-out bg-background  fixed top-5 rounded-lg px-4 py-1 w-[90%] overflow-hidden shadow left-1/2 -translate-x-1/2 lg:hidden h-[2.55rem]",
-                `${open && ' h-auto rounded-lg'}`
-            )}>
-                <div className="flex justify-between w-full gap-4">
+            <MobileNav />
+        </div>
+    );
+}
+
+function MobileNav() {
+    const pathname = usePathname();
+    const [open, setOpen] = useState(true);
+
+    return (
+        <div className="fixed z-50 lg:hidden top-5 w-[90%] left-1/2 -translate-x-1/2">
+            <div className={cn("transition-all duration-300 bg-background shadow dark:shadow-muted rounded-lg border-0 w-full ", open ? 'p-6 space-y-6' : 'p-0')}>
+                <div className="flex justify-between items-center p-2">
                     <div>
-                        <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo" />
-                        <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo" />
+                        <Image src="/icon-dark.png" height={100} width={100} className="h-8 w-8 dark:hidden" alt="Dashboard Logo" />
+                        <Image src="/icon-light.png" height={100} width={100} className="h-8 w-8 hidden dark:inline" alt="Dashboard Logo" />
                     </div>
 
                     <Button variant="ghost" className='relative h-8 w-8' size={'icon'} onClick={() => setOpen(!open)}>
@@ -113,37 +121,49 @@ export default function Nav() {
                         <Cross2Icon className={cn('absolute left-1/2 -translate-x-1/2 transition-all duration-300 h-0 w-0', `${open && 'h-6 w-6'}`)} />
                     </Button>
                 </div>
-                <div className='p-6 space-y-6'>
 
-                    <div className={cn('mt-4')}>
-                        <div className="flex flex-col gap-4">
-                            {
-                                navList.map(nav => {
-                                    const NavLink = RBac(
-                                        () => (
-                                            <Link onClick={() => setOpen(false)} className={cn(`capitalize w-fit  font-medium  transition-colors text-primary hover:text-primary -mb-1 duration-300 border-b-2 border-b-transparent`,
-                                                `${pathname.toLowerCase() == nav.href.toLowerCase() ? ' text-foreground border-b-primary' : 'text-muted-foreground'}`)} href={nav.href} title={nav.description}>
-                                                {nav.title}
-                                            </Link>
-                                        ),
-                                        [nav.permission]
-                                    );
+                {/* Sliding Menu Content */}
+                <div
+                    className={cn(
+                        "overflow-hidden transition-all duration-300 ease-in-out",
+                        open ? "max-h-screen" : "max-h-0"
+                    )}
+                >
+                    <div className="p-2 space-y-6">
+                        <div className="flex flex-col gap-4 bg-muted p-4 rounded-lg">
+                            {navList.map((nav) => {
+                                const NavLink = RBac(
+                                    () => (
+                                        <Link
+                                            onClick={() => setOpen(false)}
+                                            className={cn(
+                                                "capitalize font-medium transition-colors text-primary hover:text-primary duration-300 border-b-2 border-b-transparent",
+                                                pathname.toLowerCase() === nav.href.toLowerCase()
+                                                    ? "text-foreground border-b-primary"
+                                                    : "text-muted-foreground"
+                                            )}
+                                            href={nav.href}
+                                            title={nav.description}
+                                        >
+                                            {nav.title}
+                                        </Link>
+                                    ),
+                                    [nav.permission]
+                                );
 
-                                    return <NavLink key={nav.title} />;
-                                })
-                            }
+                                return <NavLink key={nav.title} />;
+                            })}
                         </div>
-                    </div>
-                    <div className="mt-6">
-                        <ClientSwitcher />
-                    </div>
-                    <div className="flex w-full justify-between mt-6">
-                        <ThemeToggle />
-                        <UserNav />
+                        <div className="">
+                            <ClientSwitcher />
+                        </div>
+                        <div className="flex w-full justify-between items-center bg-muted rounded-lg p-4">
+                            <ThemeToggle />
+                            <UserNav />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
