@@ -41,7 +41,7 @@ function getPermissionsByKey(user: IUser) {
         role.permissions.forEach((permission) => {
             permission &&
                 permissions.push(
-                    `${permission.module}:${permission.permission}`,
+                    `${permission.module.name}:${permission.permission}`,
                 );
         });
     });

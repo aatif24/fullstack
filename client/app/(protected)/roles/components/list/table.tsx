@@ -33,6 +33,7 @@ import Action from './action';
 import { toast } from 'sonner';
 import ConfirmArchive from '@/components/ui/confirm-archive';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 
 
 const headers: { name: TSortBy; hide: boolean; club: string[] }[] = [
@@ -222,6 +223,7 @@ export default function RoleListTable() {
                                 )}
                             >
                                 {role.name}
+                                {(role.createdAt && ((new Date().getTime() - new Date(role?.createdAt)?.getTime()) / 1000 <= 60)) && <Badge className="bg-highlight text-dark text-xs mx-2">New</Badge>}
                             </TableCell>
                             <TableCell
                                 className={cn(

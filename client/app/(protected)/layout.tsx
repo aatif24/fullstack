@@ -44,6 +44,7 @@ export default function RootLayout({
                         enableSystem
                         enableColorScheme
                     >
+
                         <header className="fixed top-0  z-50 flex w-full p-4 px-6 backdrop-blur bg-accent/30">
                             <Suspense>
                                 <Link

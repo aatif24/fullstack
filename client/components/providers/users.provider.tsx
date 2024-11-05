@@ -22,6 +22,7 @@ type Role = {
 // Define a user type that includes the role and permissions
 export interface IUser {
     id: string;
+    isNew?: boolean;
     name: string;
     email: string;
     createdAt: Date;
@@ -49,6 +50,7 @@ interface UsersContextProps {
     setSortBy: React.Dispatch<React.SetStateAction<TSortBy>>;
     setSortOrder: React.Dispatch<React.SetStateAction<TSortOrder>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
 
 // Create the context with default values
@@ -159,6 +161,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
                 setSortOrder,
                 setRefreshUsers,
                 setLoading,
+                setUsers
             }}
         >
             {children}

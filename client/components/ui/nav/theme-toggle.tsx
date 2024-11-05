@@ -44,3 +44,28 @@ export function ThemeToggle() {
         </DropdownMenu>
     );
 }
+
+
+// app/theme-toggler.tsx
+// "use client";
+
+// import { useTheme } from "@/components/providers/theme.provider";
+// import React from "react";
+
+// export const ThemeToggle: React.FC = () => {
+//     const { theme, mode, toggleMode } = useTheme();
+
+//     if (!theme) return null;
+
+//     return (
+//         <button
+//             onClick={toggleMode}
+//             style={{
+//                 backgroundColor: mode === "light" ? theme?.background?.dark : theme?.background?.light,
+//                 color: mode === "light" ? theme?.background?.light : theme?.background?.dark,
+//             }}
+//         >
+//             Toggle {mode === "light" ? "Dark" : "Light"} Mode
+//         </button>
+//     );
+// };

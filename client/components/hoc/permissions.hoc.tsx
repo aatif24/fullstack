@@ -37,10 +37,11 @@ function RBac<P>(
                 return <WrappedComponent {...props} />;
             }
 
-            const hasAllPermissions = requiredPermissions.some((perm) =>
-                user.permissions.includes(perm),
+            const hasAllPermissions = requiredPermissions.some((perm: any) =>
+                {console.log(perm);
+                
+                return user.permissions.includes(perm);}
             );
-
             if (!hasAllPermissions) {
                 return <Forbidden action={action} />;
             }

@@ -8,12 +8,17 @@ import React, {
     ReactNode,
 } from 'react';
 // Types for roles and permissions
-type Permission = {
-    [key: string]: string;
+
+type TModule = {
+    name: string;
+}
+type TPermission = {
+    permission: string;
+    module: TModule
 };
 
 type Role = {
-    permissions: Permission[];
+    permissions: TPermission[];
 };
 
 // Define a user type that includes the role and permissions
@@ -25,7 +30,7 @@ export interface User {
     updatedAt: Date;
     roles: Role[];
     isSuperAdmin: boolean;
-    permissions: string[];
+    permissions: TPermission[];
 }
 // Define the user type and context state
 interface AuthContextProps {
@@ -93,10 +98,10 @@ export const useAuth = (): AuthContextProps => {
 
 function getPermissionsByKey(user: User) {
     const permissions: string[] = [];
-
+    permissions.push('profile:read');
     user.roles.forEach((role: Role) => {
         role.permissions.forEach((permission) => {
-            permissions.push(permission.key);
+            permissions.push(`${permission?.module?.name}:${permission.permission}`);
         });
     });
 

@@ -69,15 +69,18 @@ body {
   }
 }
 
-/* new colours */
 :root {
   --warning: 38 92% 50%;
   --warning-foreground: 48 96% 89%;
+  --highlight: 81 96% 55%;
+  --highlight-foreground: 81 96% 85%;
 }
 
 .dark {
   --warning: 48 96% 89%;
   --warning-foreground: 38 92% 50%;
+  --highlight: 81 96% 55%;
+  --highlight-foreground: 81 96% 85%;
 }
 
 

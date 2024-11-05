@@ -13,7 +13,7 @@ export class AuthService {
         private authModel: Model<IAuth>,
         private usersService: UsersService,
         private jwtService: JwtService,
-    ) {}
+    ) { }
 
     async signIn({
         email,
@@ -54,6 +54,10 @@ export class AuthService {
                 populate: {
                     path: 'permissions',
                     model: 'Permission',
+                    populate: {
+                        path: "module",
+                        model: "Module"
+                    }
                 },
             },
         });

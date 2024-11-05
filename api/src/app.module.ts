@@ -9,6 +9,7 @@ import { LoggerMiddleware } from './app.middleware';
 import { PermissionsModule } from './permissions/permissions.module';
 import { ModulesModule } from './modules/modules.module';
 import { PermissionsGuard } from './permissions/permission.guard';
+import { ThemesModule } from './themes/themes.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { PermissionsGuard } from './permissions/permission.guard';
         RolesModule,
         ModulesModule,
         PermissionsModule,
+        ThemesModule,
     ],
     providers: [
         {

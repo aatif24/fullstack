@@ -12,6 +12,8 @@ const config: Config = {
 			colors: {
 				warning: "hsl(var(--warning))",
 				"warning-foreground": "hsl(var(--warning-foreground))",
+				highlight: "hsl(var(--highlight))",
+				"highlight-foreground": "hsl(var(--highlight-foreground))",
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				card: {

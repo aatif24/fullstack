@@ -31,6 +31,7 @@ import { useState } from 'react';
 import Action from './action';
 import { toast } from 'sonner';
 import ConfirmArchive from '@/components/ui/confirm-archive';
+import { Badge } from '@/components/ui/badge';
 
 
 const headers: { name: TSortBy; hide: boolean; club: string[] }[] = [
@@ -190,6 +191,7 @@ export default function ModuleListTable() {
                                 )}
                             >
                                 {module.name}
+                                {(module.createdAt && ((new Date().getTime() - new Date(module?.createdAt)?.getTime()) / 1000 <= 60)) && <Badge className="bg-highlight text-dark text-xs mx-2">New</Badge>}
                             </TableCell>
                             <TableCell className="py-2 text-right space-x-2">
                                 <Action
