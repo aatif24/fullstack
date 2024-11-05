@@ -25,8 +25,7 @@ export function UserNav() {
         }
     }
     return (
-        <div className="flex gap-4 items-center justify-center">
-            <ThemeToggle />
+        <div className="">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button

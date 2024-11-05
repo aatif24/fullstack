@@ -9,6 +9,10 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+
+			transitionProperty: {
+				'height': 'height'
+			},
 			colors: {
 				warning: "hsl(var(--warning))",
 				"warning-foreground": "hsl(var(--warning-foreground))",

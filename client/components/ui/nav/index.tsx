@@ -4,173 +4,146 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
+import ClientSwitcher from './client-switcher';
+import Image from 'next/image';
+import { UserNav } from './user-nav';
+import { MODULE_READ, PROFILE_READ, ROLES_READ, USER_READ } from '@/lib/permissions';
+import RBac from '@/components/hoc/permissions.hoc';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Cross1Icon, Cross2Icon, HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { Cross, CrossIcon } from 'lucide-react';
+import { ThemeToggle } from './theme-toggle';
+import { Separator } from '../separator';
 
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-
-const components: { title: string; href: string; description: string }[] = [
+const navList: { title: string; href: string; description: string, permission: string }[] = [
     {
-        title: 'Alert Dialog',
-        href: '/docs/primitives/alert-dialog',
+        title: 'users',
+        href: '/users',
+        permission: USER_READ,
         description:
             'A modal dialog that interrupts the user with important content and expects a response.',
     },
     {
-        title: 'Hover Card',
-        href: '/docs/primitives/hover-card',
+        title: 'modules',
+        href: '/modules',
+        permission: MODULE_READ,
         description:
             'For sighted users to preview content available behind a link.',
     },
     {
-        title: 'Progress',
-        href: '/docs/primitives/progress',
+        title: 'roles',
+        href: '/roles',
+        permission: ROLES_READ,
         description:
             'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
     },
     {
-        title: 'Scroll-area',
-        href: '/docs/primitives/scroll-area',
-        description: 'Visually or semantically separates content.',
-    },
-    {
-        title: 'Tabs',
-        href: '/docs/primitives/tabs',
+        title: 'docs',
+        href: '/documentation',
+        permission: PROFILE_READ,
         description:
-            'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-    },
-    {
-        title: 'Tooltip',
-        href: '/docs/primitives/tooltip',
-        description:
-            'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
-    },
+            'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
+    }
 ];
 
 export default function Nav() {
+    const pathname = usePathname();
+
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <NavigationMenu
-            className="z-50 grow justify-start"
-            onPointerLeave={(event) => event.preventDefault()}
-        >
-            <NavigationMenuList
-                onPointerLeave={(event) => event.preventDefault()}
-            >
-                <NavigationMenuItem
-                    onPointerLeave={(event) => event.preventDefault()}
-                >
-                    <NavigationMenuTrigger
-                        className="bg-0"
-                        onPointerMove={(event) => event.preventDefault()}
-                        onPointerLeave={(event) => event.preventDefault()}
-                    >
-                        Master
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent
-                        onPointerLeave={(event) => event.preventDefault()}
-                    >
-                        <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                            <li className="row-span-3">
-                                <NavigationMenuLink asChild>
-                                    <Link
-                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                        href="/users"
-                                    >
-                                        <div className="mb-2 mt-4 text-lg font-medium">
-                                            Users
-                                        </div>
-                                        <p className="text-sm leading-tight text-muted-foreground">
-                                            Manage and oversee the users in the system, including creation, updates, and role assignments.
-                                        </p>
-                                    </Link>
-                                </NavigationMenuLink>
-                            </li>
-                            <ListItem href="/modules" title="Modules">
-                                Configure and manage different system functionalities or features.
-                            </ListItem>
-                            <ListItem href="/roles" title="Roles">
-                                Define user roles and set permissions for various modules.
-                            </ListItem>
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem
-                    onPointerLeave={(event) => event.preventDefault()}
-                >
-                    <NavigationMenuTrigger
-                        className="bg-0"
-                        onPointerMove={(event) => event.preventDefault()}
-                        onPointerLeave={(event) => event.preventDefault()}
-                    >
-                        Components
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent
-                        onPointerLeave={(event) => event.preventDefault()}
-                    >
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                            {components.map((component) => (
-                                <ListItem
-                                    key={component.title}
-                                    title={component.title}
-                                    href={component.href}
-                                >
-                                    {component.description}
-                                </ListItem>
-                            ))}
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem
-                    onPointerLeave={(event) => event.preventDefault()}
-                >
-                    <Link href="/documentation" legacyBehavior passHref>
-                        <NavigationMenuLink
-                            className={cn(
-                                navigationMenuTriggerStyle(),
-                                'hidden md:inline',
-                                'bg-0',
-                            )}
-                        >
-                            Documentation
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
+        <div className='relative z-50'>
+            {/* Main menu on large screens */}
+            <div className={cn(`hidden lg:fixed top-0   lg:flex w-full p-4 px-6 backdrop-blur bg-background/30 dark:bg-background/70 transition-all duration-300 -translate-x-1/2 left-1/2`, `${isScrolled && 'border-[0.5px] -translate-x-1/2 w-3/4 shadow rounded-full left-1/2 top-5'}`)}>
+                <div className='flex items-center justify-between w-full gap-4'>
+                    <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo" />
+                    <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo" />
+                    <div className="flex flex-1 items-center space-x-4 mx-4">
+                        {
+                            navList.map(nav => {
+                                const NavLink = RBac(
+                                    () => (
+                                        <Link className={cn(`capitalize text-sm font-medium  transition-colors text-primary hover:text-primary -mb-1 duration-300 border-b-2 border-b-transparent`,
+                                            `${pathname.toLowerCase() == nav.href.toLowerCase() ? ' text-foreground border-b-primary' : 'text-muted-foreground'}`)} href={nav.href} title={nav.description}>
+                                            {nav.title}
+                                        </Link>
+                                    ),
+                                    [nav.permission]
+                                );
+
+                                return <NavLink key={nav.title} />;
+                            })
+                        }
+                    </div>
+                    <ClientSwitcher />
+                    <ThemeToggle />
+                    <UserNav />
+                </div>
+            </div>
+            <div className={cn(
+                "transition-height border-[0.5px]  duration-300 ease-in-out bg-background  fixed top-5 rounded-lg px-4 py-1 w-[90%] overflow-hidden shadow left-1/2 -translate-x-1/2 lg:hidden h-[2.55rem]",
+                `${open && ' h-auto rounded-lg'}`
+            )}>
+                <div className="flex justify-between w-full gap-4">
+                    <div>
+                        <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo" />
+                        <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo" />
+                    </div>
+
+                    <Button variant="ghost" className='relative h-8 w-8' size={'icon'} onClick={() => setOpen(!open)}>
+                        <HamburgerMenuIcon className={cn('absolute left-1/2 -translate-x-1/2 transition-all duration-300  h-6 w-6', `${open && 'h-0 w-0'}`)} />
+                        <Cross2Icon className={cn('absolute left-1/2 -translate-x-1/2 transition-all duration-300 h-0 w-0', `${open && 'h-6 w-6'}`)} />
+                    </Button>
+                </div>
+                <div className='p-6 space-y-6'>
+
+                    <div className={cn('mt-4')}>
+                        <div className="flex flex-col gap-4">
+                            {
+                                navList.map(nav => {
+                                    const NavLink = RBac(
+                                        () => (
+                                            <Link onClick={() => setOpen(false)} className={cn(`capitalize w-fit  font-medium  transition-colors text-primary hover:text-primary -mb-1 duration-300 border-b-2 border-b-transparent`,
+                                                `${pathname.toLowerCase() == nav.href.toLowerCase() ? ' text-foreground border-b-primary' : 'text-muted-foreground'}`)} href={nav.href} title={nav.description}>
+                                                {nav.title}
+                                            </Link>
+                                        ),
+                                        [nav.permission]
+                                    );
+
+                                    return <NavLink key={nav.title} />;
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="mt-6">
+                        <ClientSwitcher />
+                    </div>
+                    <div className="flex w-full justify-between mt-6">
+                        <ThemeToggle />
+                        <UserNav />
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
-const ListItem = React.forwardRef<
-    React.ElementRef<'a'>,
-    React.ComponentPropsWithoutRef<'a'>
->(({ className, title, children, ...props }, ref) => {
-    return (
-        <li>
-            <NavigationMenuLink asChild>
-                <Link
-                    href={props.href as string}
-                    ref={ref}
-                    className={cn(
-                        'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-                        className,
-                    )}
-                    {...props}
-                >
-                    <div className="text-sm font-medium leading-none">
-                        {title}
-                    </div>
-                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {children}
-                    </p>
-                </Link>
-            </NavigationMenuLink>
-        </li>
-    );
-});
-ListItem.displayName = 'ListItem';
