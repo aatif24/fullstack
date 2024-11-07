@@ -12,7 +12,7 @@ export default RBac(
         return (
             <div
                  className="h-full flex-1 flex-col space-y-8 md:flex">
-                <PageHeader title='Home' description="Here&apos;s a dashboard!"/>
+                <PageHeader title='Home' />
                 <Card className="mb-6">
                     <CardHeader>
                         <CardTitle>Hello,</CardTitle>

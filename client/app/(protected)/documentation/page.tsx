@@ -6,8 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { ExpandableCard } from "./components/expandable-card";
 
 export default function Documentation() {
-    return <div className="">
-        {/* <PageHeader title="User Management Guide" description="Check out our quick start guide to get up and running in no time." /> */}
+    return <div className="h-full flex-1 flex-col space-y-8 md:flex">
+        <PageHeader title="Documentation"/>
         <section className="">
             <Card className="relative border-none shadow-none">
                 <h2 className="text-2xl font-semibold mb-2">Accessing the User Listing Page</h2>

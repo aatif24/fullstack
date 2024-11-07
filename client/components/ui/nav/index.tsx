@@ -12,10 +12,8 @@ import RBac from '@/components/hoc/permissions.hoc';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Cross1Icon, Cross2Icon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-import { Cross, CrossIcon } from 'lucide-react';
+import { Cross2Icon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { ThemeToggle } from './theme-toggle';
-import { Separator } from '../separator';
 
 const navList: { title: string; href: string; description: string, permission: string }[] = [
     {
@@ -62,17 +60,17 @@ export default function Nav() {
         }
     };
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll);
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
 
     return (
         <div className='relative z-50'>
             {/* Main menu on large screens */}
-            <div className={cn(`hidden lg:fixed top-0   lg:flex w-full p-4 px-6 backdrop-blur bg-background/30 dark:bg-background/70 transition-all duration-300 -translate-x-1/2 left-1/2`, `${isScrolled && 'border-[0.5px] dark:border-0 dark:shadow-foreground/20 -translate-x-1/2 w-3/4 shadow rounded-full left-1/2 top-5'}`)}>
+            <div className={cn(`hidden lg:fixed top-0   lg:flex w-full p-4 px-6 backdrop-blur bg-background/30 dark:bg-background/70 transition-all duration-300 -translate-x-1/2 left-1/2`, `${isScrolled && 'border-[0.5px] dark:border-0 dark:shadow-foreground/20  w-3/4 shadow rounded-full top-5'}`)}>
                 <div className='flex items-center justify-between w-full gap-4'>
                     <Image src="/icon-dark.png" height={100} width={100} className='h-8 w-8  dark:hidden' alt="Dashboard Logo" />
                     <Image src="/icon-light.png" height={100} width={100} className='h-8 w-8  hidden dark:block' alt="Dashboard Logo" />
@@ -82,7 +80,7 @@ export default function Nav() {
                                 const NavLink = RBac(
                                     () => (
                                         <Link className={cn(`capitalize text-sm font-medium  transition-colors text-primary hover:text-primary -mb-1 duration-300 border-b-2 border-b-transparent`,
-                                            `${pathname.toLowerCase() == nav.href.toLowerCase() ? ' text-foreground border-b-primary' : 'text-muted-foreground'}`)} href={nav.href} title={nav.description}>
+                                            `${pathname.toLowerCase().includes(nav.href.replaceAll('/', '')) ? ' text-foreground border-b-primary' : 'text-muted-foreground'}`)} href={nav.href} title={nav.description}>
                                             {nav.title}
                                         </Link>
                                     ),
@@ -105,7 +103,7 @@ export default function Nav() {
 
 function MobileNav() {
     const pathname = usePathname();
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     return (
         <div className="fixed z-50 lg:hidden top-5 w-[90%] left-1/2 -translate-x-1/2">
