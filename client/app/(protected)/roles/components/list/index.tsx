@@ -1,7 +1,11 @@
 'use client';
 
 import RBac from '@/components/hoc/permissions.hoc';
-import { TSortBy, TSortOrder, useRoles } from '@/components/providers/roles.provider';
+import {
+    TSortBy,
+    TSortOrder,
+    useRoles,
+} from '@/components/providers/roles.provider';
 import { Card, CardContent } from '@/components/ui/card';
 import LoaderComponent from '@/components/ui/loader';
 import { USER_READ } from '@/lib/permissions';
@@ -16,10 +20,9 @@ function ListRoles() {
         setSortBy,
         setSearch,
         setCurrentPage,
-        search,
         loading,
         totalPages,
-        currentPage
+        currentPage,
     } = useRoles();
     const currentSearchParams = useSearchParams();
 
@@ -52,7 +55,8 @@ function ListRoles() {
                 <PaginationComponent
                     totalPages={totalPages}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage} />
+                    setCurrentPage={setCurrentPage}
+                />
             </CardContent>
         </Card>
     );

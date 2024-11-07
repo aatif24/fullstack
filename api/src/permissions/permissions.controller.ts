@@ -5,8 +5,7 @@ import { RequirePermissions } from './permissions.decorator';
 
 @Controller('permissions')
 export class PermissionsController {
-
-    constructor(private permissionsService: PermissionsService) { }
+    constructor(private permissionsService: PermissionsService) {}
 
     @RequirePermissions('read')
     @Get('')

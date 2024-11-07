@@ -5,8 +5,7 @@ import { Public } from 'src/auth/auth.guard';
 
 @Controller('themes')
 export class ThemesController {
-
-    constructor(private themeService: ThemesService) { }
+    constructor(private themeService: ThemesService) {}
 
     // @RequirePermissions('read')
     @Public()

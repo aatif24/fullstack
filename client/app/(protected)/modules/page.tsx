@@ -7,13 +7,23 @@ import { Suspense } from 'react';
 import PageHeader from '@/components/ui/page-header';
 import { useModules } from '@/components/providers/modules.provider';
 
-export default RBac(function Modules() {
-    const { search, setSearch } = useModules()
-    return <div className='md:space-y-8'>
-        <PageHeader title={"Modules"} module={'modules'} ctx={'create'} search={search} setSearch={setSearch} />
-        <Suspense fallback={<p>loading</p>}>
-            <ListModules />
-        </Suspense>
-    </div>
-}, [ROLES_READ]
-)
+export default RBac(
+    function Modules() {
+        const { search, setSearch } = useModules();
+        return (
+            <div className="md:space-y-8 space-y-6">
+                <PageHeader
+                    title={'Modules'}
+                    module={'modules'}
+                    ctx={'create'}
+                    search={search}
+                    setSearch={setSearch}
+                />
+                <Suspense fallback={<p>loading</p>}>
+                    <ListModules />
+                </Suspense>
+            </div>
+        );
+    },
+    [ROLES_READ],
+);

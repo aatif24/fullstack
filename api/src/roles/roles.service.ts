@@ -12,7 +12,7 @@ export class RolesService {
     constructor(
         @Inject('ROLE_MODEL')
         private roleModel: Model<IRole>,
-    ) { }
+    ) {}
 
     // async firstSet() {
     //     return;
@@ -61,11 +61,10 @@ export class RolesService {
     // }
 
     async create(role: CreateRoleDto, user: IUser): Promise<IRole> {
-        const newRole = new this.roleModel(role)
+        const newRole = new this.roleModel(role);
         newRole.createdBy = user;
         return newRole.save();
     }
-
 
     async findAll({
         page = 1,
@@ -81,10 +80,10 @@ export class RolesService {
     }> {
         try {
             const query: { [key: string]: string | boolean | number | object } =
-            {
-                isArchived: { $ne: true },
-                isSuperAdmin: { $ne: true },
-            };
+                {
+                    isArchived: { $ne: true },
+                    isSuperAdmin: { $ne: true },
+                };
 
             // If a search term is provided, use regex to search on the email field (case-insensitive)
             if (q) {
@@ -99,7 +98,10 @@ export class RolesService {
                 .sort({ [sortBy]: sortOrder == 'asc' ? 1 : -1 })
                 .skip((page - 1) * limit) // Skip based on the page
                 .limit(limit) // Limit the number of results
-                .populate({ path: 'permissions', populate: { path: 'module' } }); // Execute the query
+                .populate({
+                    path: 'permissions',
+                    populate: { path: 'module' },
+                }); // Execute the query
 
             // Get the total count of matching roles
             const totalCount = await this.roleModel.countDocuments(query);

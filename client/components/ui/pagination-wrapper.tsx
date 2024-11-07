@@ -19,9 +19,9 @@ export function PaginationComponent({
 }) {
     const handlePageChange = (action = 'next') => {
         if (action === 'next' && currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);  // Corrected here
+            setCurrentPage(currentPage + 1); // Corrected here
         } else if (action === 'prev' && currentPage > 1) {
-            setCurrentPage(currentPage - 1);  // Corrected here
+            setCurrentPage(currentPage - 1); // Corrected here
         }
     };
 

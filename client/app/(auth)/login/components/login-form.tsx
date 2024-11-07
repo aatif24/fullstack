@@ -36,7 +36,7 @@ export function LoginForm() {
     });
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-        const response = await login(data);
+        await login(data);
     }
 
     return (

@@ -5,7 +5,7 @@ export class IPermissionsQueryParams {
     page: number;
 
     @IsOptional()
-    limit: number|'all';
+    limit: number | 'all';
 
     @IsOptional()
     sortBy: 'name';

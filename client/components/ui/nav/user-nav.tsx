@@ -12,21 +12,18 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
-
 
 export function UserNav() {
     async function handleLogout() {
-        const res = await fetch("/api/users/logout", {
-            method: "POST",
+        const res = await fetch('/api/users/logout', {
+            method: 'POST',
         });
         if (res.redirected) {
             window.location.href = res.url;
         }
     }
     return (
-
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
@@ -35,10 +32,7 @@ export function UserNav() {
                     className="relative h-8 w-8 rounded-full flex-none"
                 >
                     <Avatar className="lg:h-9 lg:w-9">
-                        <AvatarImage
-                            src="/avatar.png"
-                            alt="@shadcn"
-                        />
+                        <AvatarImage src="/avatar.png" alt="@shadcn" />
                         <AvatarFallback>AD</AvatarFallback>
                     </Avatar>
                 </Button>

@@ -18,7 +18,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import RBac from '@/components/hoc/permissions.hoc';
 import { USER_CREATE } from '@/lib/permissions';
-import { useState } from 'react';
 
 import { toast } from 'sonner';
 import { useModules } from '@/components/providers/modules.provider';
@@ -26,26 +25,20 @@ import { useModules } from '@/components/providers/modules.provider';
 const FormSchema = z.object({
     name: z.string().min(1, {
         message: 'Name can not be empty.',
-    })
+    }),
 });
-
 
 function CreateModuleForm() {
     const { setRefreshModules } = useModules();
-    const [loading, setLoading] = useState<boolean>(true);
-
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            name: ''
+            name: '',
         },
     });
 
-
-
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-        setLoading(true);
         try {
             const res = await fetch(`/api/modules?`, {
                 method: 'POST',
@@ -59,7 +52,7 @@ function CreateModuleForm() {
                 setRefreshModules(true);
             } else if (res.status == 400) {
                 for (const key in result) {
-                    form.setError(key as any, {
+                    form.setError(key as 'name' | 'root', {
                         message: result[key].join(', '),
                     });
                 }
@@ -67,9 +60,7 @@ function CreateModuleForm() {
         } catch (err) {
             console.log(err);
             toast.error(`Something went wrong!`);
-            setLoading(false);
         } finally {
-            setLoading(false);
         }
     }
 
@@ -105,7 +96,6 @@ function CreateModuleForm() {
                                             )}
                                         />
                                     </fieldset>
-
                                 </div>
                                 <div className="flex justify-between md:justify-start space-x-2">
                                     <Button

@@ -5,7 +5,7 @@ import {
     TSortOrder,
     useUsers,
 } from '@/components/providers/users.provider';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import RBac from '@/components/hoc/permissions.hoc';
 import { USER_READ } from '@/lib/permissions';
@@ -21,7 +21,6 @@ function ListUsers() {
         setCurrentPage,
         currentPage,
         totalPages,
-        search,
         loading,
     } = useUsers();
     const currentSearchParams = useSearchParams();
@@ -62,4 +61,4 @@ function ListUsers() {
     );
 }
 
-export default RBac(ListUsers, [USER_READ]);
+export default RBac(memo(ListUsers), [USER_READ]);

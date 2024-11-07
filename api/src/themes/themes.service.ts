@@ -4,11 +4,10 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class ThemesService {
-
     constructor(
         @Inject('THEME_MODEL')
         private themeModel: Model<ITheme>,
-    ) { }
+    ) {}
 
     async findAll(): Promise<ITheme[]> {
         // await new this.themeModel({
@@ -24,5 +23,4 @@ export class ThemesService {
         // }).save();
         return this.themeModel.find();
     }
-
 }

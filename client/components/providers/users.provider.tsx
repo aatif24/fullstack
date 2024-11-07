@@ -161,7 +161,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
                 setSortOrder,
                 setRefreshUsers,
                 setLoading,
-                setUsers
+                setUsers,
             }}
         >
             {children}

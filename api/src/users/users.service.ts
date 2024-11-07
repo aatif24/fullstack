@@ -9,7 +9,7 @@ export class UsersService {
     constructor(
         @Inject('USER_MODEL')
         private userModel: Model<IUser>,
-    ) { }
+    ) {}
 
     async createAdmin(): Promise<IUser> {
         try {
@@ -74,10 +74,10 @@ export class UsersService {
     }> {
         try {
             const query: { [key: string]: string | boolean | number | object } =
-            {
-                isArchived: { $ne: true },
-                isSuperAdmin: { $ne: true },
-            };
+                {
+                    isArchived: { $ne: true },
+                    isSuperAdmin: { $ne: true },
+                };
 
             // If a search term is provided, use regex to search on the email field (case-insensitive)
             if (q) {
@@ -93,7 +93,13 @@ export class UsersService {
                 .sort({ [sortBy]: sortOrder == 'asc' ? 1 : -1 })
                 .skip((page - 1) * limit) // Skip based on the page
                 .limit(limit) // Limit the number of results
-                .populate({ path: 'roles', populate: { path: "permissions", populate: { path: "module" } } }); // Execute the query
+                .populate({
+                    path: 'roles',
+                    populate: {
+                        path: 'permissions',
+                        populate: { path: 'module' },
+                    },
+                }); // Execute the query
 
             // Get the total count of matching users
             const totalCount = await this.userModel.countDocuments(query);

@@ -13,4 +13,4 @@ export interface Theme {
     radius: string;
 }
 
-export type ThemeMode = "light" | "dark";
+export type ThemeMode = 'light' | 'dark';

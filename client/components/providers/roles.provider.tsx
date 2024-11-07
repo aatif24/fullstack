@@ -11,8 +11,8 @@ import React, {
 } from 'react';
 
 type TModule = {
-    name: string
-}
+    name: string;
+};
 
 export type TPermission = {
     module: TModule;

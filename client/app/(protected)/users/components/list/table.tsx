@@ -141,10 +141,10 @@ export default function UserListTable() {
                                                         {h.name}
                                                     </span>
                                                     {sortBy === h.name &&
-                                                        sortOrder === 'desc' ? (
+                                                    sortOrder === 'desc' ? (
                                                         <ArrowDownIcon className="ml-2 h-4 w-4" />
                                                     ) : sortBy === h.name &&
-                                                        sortOrder === 'asc' ? (
+                                                      sortOrder === 'asc' ? (
                                                         <ArrowUpIcon className="ml-2 h-4 w-4" />
                                                     ) : (
                                                         <CaretSortIcon className="ml-2 h-4 w-4" />
@@ -200,7 +200,15 @@ export default function UserListTable() {
                                 )}
                             >
                                 {user.name}
-                                {(user.createdAt && ((new Date().getTime() - new Date(user?.createdAt)?.getTime()) / 1000 <= 60)) && <Badge className="bg-highlight text-dark text-xs mx-2">New</Badge>}
+                                {user.createdAt &&
+                                    (new Date().getTime() -
+                                        new Date(user?.createdAt)?.getTime()) /
+                                        1000 <=
+                                        60 && (
+                                        <Badge className="bg-highlight text-dark text-xs mx-2">
+                                            New
+                                        </Badge>
+                                    )}
                                 <p className="md:hidden text-xs text-muted-foreground/90">
                                     {user.email}
                                 </p>

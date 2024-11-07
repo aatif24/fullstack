@@ -1,7 +1,11 @@
 'use client';
 
 import RBac from '@/components/hoc/permissions.hoc';
-import { TSortBy, TSortOrder, useModules } from '@/components/providers/modules.provider';
+import {
+    TSortBy,
+    TSortOrder,
+    useModules,
+} from '@/components/providers/modules.provider';
 import { Card, CardContent } from '@/components/ui/card';
 import LoaderComponent from '@/components/ui/loader';
 import { USER_READ } from '@/lib/permissions';
@@ -18,7 +22,7 @@ function ListModules() {
         setCurrentPage,
         loading,
         totalPages,
-        currentPage
+        currentPage,
     } = useModules();
     const currentSearchParams = useSearchParams();
 
@@ -51,7 +55,8 @@ function ListModules() {
                 <PaginationComponent
                     totalPages={totalPages}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage} />
+                    setCurrentPage={setCurrentPage}
+                />
             </CardContent>
         </Card>
     );

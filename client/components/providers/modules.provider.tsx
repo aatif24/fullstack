@@ -10,8 +10,6 @@ import React, {
     ReactNode,
 } from 'react';
 
-
-
 // Define a role type that includes the role and permissions
 export interface IModule {
     id: string;
@@ -43,7 +41,9 @@ interface ModulesContextProps {
 }
 
 // Create the context with default values
-const ModulesContext = createContext<ModulesContextProps | undefined>(undefined);
+const ModulesContext = createContext<ModulesContextProps | undefined>(
+    undefined,
+);
 
 // ModulesProvider component props
 interface ModulesProviderProps {
@@ -59,7 +59,9 @@ export const useModules = (): ModulesContextProps => {
     return context;
 };
 // Create ModulesProvider to wrap the app
-export const ModulesProvider: React.FC<ModulesProviderProps> = ({ children }) => {
+export const ModulesProvider: React.FC<ModulesProviderProps> = ({
+    children,
+}) => {
     const [modules, setModules] = useState<IModule[] | []>([]);
     const [refreshModules, setRefreshModules] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState<number>(1);

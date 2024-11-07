@@ -23,7 +23,7 @@ export const ThemeSchema = new mongoose.Schema<ITheme>(
         name: { type: String, default: null },
         background: { type: ThemeModeSchema, default: null },
         foreground: { type: ThemeModeSchema, default: null },
-        radius: { type: String, default: null }
+        radius: { type: String, default: null },
     },
     { timestamps: true, id: true, toJSON: { virtuals: true } },
 );

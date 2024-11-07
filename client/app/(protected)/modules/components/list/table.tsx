@@ -33,13 +33,12 @@ import { toast } from 'sonner';
 import ConfirmArchive from '@/components/ui/confirm-archive';
 import { Badge } from '@/components/ui/badge';
 
-
 const headers: { name: TSortBy; hide: boolean; club: string[] }[] = [
     {
         name: 'name',
         hide: false,
         club: ['email', 'modules'],
-    }
+    },
 ];
 
 export default function ModuleListTable() {
@@ -191,7 +190,17 @@ export default function ModuleListTable() {
                                 )}
                             >
                                 {module.name}
-                                {(module.createdAt && ((new Date().getTime() - new Date(module?.createdAt)?.getTime()) / 1000 <= 60)) && <Badge className="bg-highlight text-dark text-xs mx-2">New</Badge>}
+                                {module.createdAt &&
+                                    (new Date().getTime() -
+                                        new Date(
+                                            module?.createdAt,
+                                        )?.getTime()) /
+                                        1000 <=
+                                        60 && (
+                                        <Badge className="bg-highlight text-dark text-xs mx-2">
+                                            New
+                                        </Badge>
+                                    )}
                             </TableCell>
                             <TableCell className="py-2 text-right space-x-2">
                                 <Action

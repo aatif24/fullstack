@@ -6,7 +6,7 @@ import { CreateRoleDto } from './dto/createRole.dto';
 
 @Controller({ version: '1', path: 'roles' })
 export class RolesController {
-    constructor(private rolesService: RolesService) { }
+    constructor(private rolesService: RolesService) {}
 
     @RequirePermissions('read')
     @Get('')
@@ -24,7 +24,7 @@ export class RolesController {
     @RequirePermissions('create')
     @Post('createFirstSet')
     firstSet() {
-        return
+        return;
         // return this.rolesService.firstSet();
     }
 }

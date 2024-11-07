@@ -7,5 +7,5 @@ export const RolesProviders = [
         useFactory: (connection: Connection) =>
             connection.model('Role', RoleSchema),
         inject: ['DATABASE_CONNECTION'],
-    }
+    },
 ];

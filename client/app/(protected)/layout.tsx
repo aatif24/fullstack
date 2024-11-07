@@ -1,5 +1,4 @@
 import Nav from '@/components/ui/nav';
-import { BreadcrumbComponent } from '@/components/ui/nav/breadcrumb';
 import localFont from 'next/font/local';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -28,7 +27,6 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-
     return (
         <html lang="en" suppressHydrationWarning>
             <body
@@ -45,9 +43,7 @@ export default function RootLayout({
                             <Nav />
                         </Suspense>
                         <div className="md:max-w-7xl mx-auto my-[5rem] md:my-[6rem] lg:my-[8rem] p-6 md:p-6 lg:p-4 xl:p-0">
-                            <Suspense>
-                                {children}
-                            </Suspense>
+                            <Suspense>{children}</Suspense>
                         </div>
                     </ThemeProvider>
                 </AuthProvider>

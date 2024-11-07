@@ -11,10 +11,10 @@ import React, {
 
 type TModule = {
     name: string;
-}
+};
 type TPermission = {
     permission: string;
-    module: TModule
+    module: TModule;
 };
 
 type Role = {
@@ -101,7 +101,9 @@ function getPermissionsByKey(user: User) {
     permissions.push('profile:read');
     user.roles.forEach((role: Role) => {
         role.permissions.forEach((permission) => {
-            permissions.push(`${permission?.module?.name}:${permission.permission}`);
+            permissions.push(
+                `${permission?.module?.name}:${permission.permission}`,
+            );
         });
     });
 

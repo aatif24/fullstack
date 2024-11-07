@@ -12,19 +12,23 @@ export class PermissionsService {
     constructor(
         @Inject('PERMISSION_MODEL')
         private permissionModel: Model<IPermission>,
-    ) { }
+    ) {}
 
-    async createPermissionsForModule(module: IModule, user: IUser): Promise<IPermission[]> {
-        return await Promise.all(defaultPermissions.map(p => {
-            const permission = new this.permissionModel({
-                permission: p,
-                module,
-                createdBy: user
-            })
-            return permission.save();
-        }))
+    async createPermissionsForModule(
+        module: IModule,
+        user: IUser,
+    ): Promise<IPermission[]> {
+        return await Promise.all(
+            defaultPermissions.map((p) => {
+                const permission = new this.permissionModel({
+                    permission: p,
+                    module,
+                    createdBy: user,
+                });
+                return permission.save();
+            }),
+        );
     }
-
 
     async findAll({
         page = 1,
@@ -40,10 +44,10 @@ export class PermissionsService {
     }> {
         try {
             const query: { [key: string]: string | boolean | number | object } =
-            {
-                isArchived: { $ne: true },
-                isSuperAdmin: { $ne: true },
-            };
+                {
+                    isArchived: { $ne: true },
+                    isSuperAdmin: { $ne: true },
+                };
 
             // If a search term is provided, use regex to search on the email field (case-insensitive)
             if (q) {

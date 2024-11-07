@@ -19,7 +19,7 @@ import RBac from '@/components/hoc/permissions.hoc';
 import { USER_CREATE } from '@/lib/permissions';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { useEffect, useState } from 'react';
-import { IUser, useUsers } from '@/components/providers/users.provider';
+import { useUsers } from '@/components/providers/users.provider';
 import { toast } from 'sonner';
 import { useParams } from 'next/navigation';
 import LoaderComponent from '@/components/ui/loader';
@@ -164,7 +164,6 @@ function UpdateUserForm() {
 
     return (
         <>
-            
             <Card className="relative border-none shadow-none">
                 <CardContent className="p-0">
                     <LoaderComponent loading={loading} />

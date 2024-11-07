@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query, Req, Request } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Query,
+    Req,
+    Request,
+} from '@nestjs/common';
 import { ModulesService } from './modules.service';
 
 import { IModuleQueryParams } from './dto/fetchModules.dto';
@@ -7,7 +15,7 @@ import { CreateModuleDto } from './dto/createUser.dto';
 
 @Controller({ version: '1', path: 'modules' })
 export class ModulesController {
-    constructor(private modulesService: ModulesService) { }
+    constructor(private modulesService: ModulesService) {}
 
     @RequirePermissions('read')
     @Get('')

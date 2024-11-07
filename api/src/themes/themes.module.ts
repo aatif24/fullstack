@@ -5,8 +5,8 @@ import { ThemesProviders } from './themes.providers';
 import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [ThemesController],
-  providers: [ThemesService, ...ThemesProviders]
+    imports: [DatabaseModule],
+    controllers: [ThemesController],
+    providers: [ThemesService, ...ThemesProviders],
 })
-export class ThemesModule { }
+export class ThemesModule {}

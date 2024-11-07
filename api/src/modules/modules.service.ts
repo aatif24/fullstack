@@ -9,14 +9,14 @@ export class ModulesService {
     constructor(
         @Inject('FEATURE_MODEL')
         private moduleModel: Model<IModule>,
-        private permissionsService: PermissionsService
-    ) { }
+        private permissionsService: PermissionsService,
+    ) {}
 
     async create(module, user) {
         const newModule = new this.moduleModel(module);
         newModule.createdBy = user;
         newModule.save();
-        this.permissionsService.createPermissionsForModule(newModule,user)
+        this.permissionsService.createPermissionsForModule(newModule, user);
         return newModule;
     }
 
@@ -34,10 +34,10 @@ export class ModulesService {
     }> {
         try {
             const query: { [key: string]: string | boolean | number | object } =
-            {
-                isArchived: { $ne: true },
-                isSuperAdmin: { $ne: true },
-            };
+                {
+                    isArchived: { $ne: true },
+                    isSuperAdmin: { $ne: true },
+                };
 
             // If a search term is provided, use regex to search on the email field (case-insensitive)
             if (q) {
@@ -51,7 +51,7 @@ export class ModulesService {
                 .find(query)
                 .sort({ [sortBy]: sortOrder == 'asc' ? 1 : -1 })
                 .skip((page - 1) * limit) // Skip based on the page
-                .limit(limit) // Limit the number of results
+                .limit(limit); // Limit the number of results
 
             // Get the total count of matching modules
             const totalCount = await this.moduleModel.countDocuments(query);
